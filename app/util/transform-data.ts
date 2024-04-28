@@ -12,7 +12,7 @@ const HEADERS = [
 ] as const
 
 type EntryKey = (typeof HEADERS)[number]
-type Entry = Record<EntryKey, string>
+export type Dog = Record<EntryKey, string>
 
 export function transformData(text: string) {
   const data = text.split('\n').map((i) => i.split(','))
@@ -21,8 +21,8 @@ export function transformData(text: string) {
     d.replace(/(\r\n|\n|\r)/gm, '')
   ) as unknown as typeof HEADERS
 
-  const output = data.reduce((acc: Entry[], curr) => {
-    const entry = {} as Entry
+  const output = data.reduce((acc: Dog[], curr) => {
+    const entry = {} as Dog
     headers.forEach((h, i) => {
       entry[h] = curr[i]
     })

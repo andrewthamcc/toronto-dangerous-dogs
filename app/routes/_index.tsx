@@ -1,6 +1,10 @@
 import type { MetaFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { transformData } from '~/util/transform-data'
+import { Outlet, useLoaderData } from '@remix-run/react'
+import { transformData, type Dog } from '~/util/transform-data'
+import { Layout } from '../layout'
+import { Suspense } from 'react'
+import LeafletMap from '~/components/leaflet-map.client'
+import { Spinner } from '~/components/spinner/spinner'
 
 export const meta: MetaFunction = () => {
   return [
@@ -17,32 +21,41 @@ export async function loader() {
       `https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=${packageId}`
     )
     const data = await res.json()
-    const resources = data.result.resources
-    const activeIds = []
+    const activeIds: string[] = data.result.resources
+      .filter(
+        ({ datastore_active }: { datastore_active: boolean }) =>
+          datastore_active
+      )
+      .map(({ id }: { id: string }) => id)
 
-    for (const r in resources) {
-      if (resources[r].datastore_active) activeIds.push(resources[r].id)
-    }
-
+    const dogData: Dog[] = []
     for (const id of activeIds) {
       const res = await fetch(
         `https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/${id}`
       )
 
       const text = await res.text()
-      return transformData(text)
+      dogData.push(...transformData(text))
     }
+
+    return dogData
   } catch (error) {
     console.error(error)
   }
 }
 
 export default function Index() {
-  const data = useLoaderData();
+  const data = useLoaderData<Dog[]>()
 
   return (
-    <div>
-      <h1>Dangerous dogs?</h1>
-    </div>
+    <Layout>
+      <Suspense fallback={<Spinner />}>
+        <div className="flex flex-grow">
+          <LeafletMap center={[43.71, -79.35]} zoom={11} />
+        </div>
+
+        <Outlet context={data} />
+      </Suspense>
+    </Layout>
   )
 }

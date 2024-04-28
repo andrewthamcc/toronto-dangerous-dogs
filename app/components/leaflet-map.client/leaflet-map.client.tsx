@@ -1,0 +1,26 @@
+import type { MapOptions } from 'leaflet'
+import { PropsWithChildren } from 'react'
+import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet'
+import wards from '../../data/wards.json'
+
+interface LeafletMapProps extends PropsWithChildren, MapOptions {
+  center: [number, number]
+  zoom?: number
+}
+
+export const LeafletMap = ({ children, ...props }: LeafletMapProps) => {
+  return (
+    <MapContainer className="flex-grow w-full" maxZoom={16} {...props}>
+      <GeoJSON
+        data={wards.features}
+        onEachFeature={(feature, layer) => {
+        }}
+        style={{
+          fillColor: 'none',
+          weight: 2,
+        }}
+      />
+      <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+    </MapContainer>
+  )
+}
