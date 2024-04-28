@@ -1,7 +1,7 @@
 import { WARDS } from '~/data/constants'
 import { Dog } from '~/types'
 
-interface DogRecord {
+export interface DogRecord {
   [key: string]: number
 }
 

@@ -1,4 +1,8 @@
+import { BreedsChart } from '~/components/breeds-chart'
 import { Card } from '~/components/card'
+import { LocationsChart } from '~/components/locations-chart'
+import { type Ward, WardsChart } from '~/components/wards-chart'
+import { YearsChart } from '~/components/years-chart'
 import { useDogs } from '~/root'
 import { getStats } from '~/util/get-stats'
 
@@ -10,20 +14,22 @@ export default function Stats() {
   return (
     <div className="flex flex-col gap-6">
       <Card title="Wards">
-        <p>Wards</p>
-      </Card>
-
-      <Card title="Breeds">
-        <p>Breed</p>
+        <WardsChart wards={wards as Ward[]} />
       </Card>
 
       <Card title="Years">
-        <p>Year</p>
+        <YearsChart years={years} />
       </Card>
 
-      <Card title="Incident location">
-        <p>Location</p>
-      </Card>
+      <div className="grid grid-cols-2 gap-4">
+        <Card title="Breeds">
+          <BreedsChart {...breeds} />
+        </Card>
+
+        <Card title="Incident location">
+          <LocationsChart locations={incidentLocations} />
+        </Card>
+      </div>
     </div>
   )
 }
