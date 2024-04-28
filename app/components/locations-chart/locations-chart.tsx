@@ -18,35 +18,33 @@ interface LocationsChartProps {
 
 export const LocationsChart = ({ locations }: LocationsChartProps) => {
   return (
-    <div className="flex grow flex-col items-end">
-      <Bar
-        className="mt-auto"
-        options={{
-          plugins: {
-            legend: {
+    <Bar
+      className="my-auto"
+      options={{
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        responsive: true,
+        scales: {
+          y: {
+            grid: {
               display: false,
             },
           },
-            responsive: true,
-          scales: {
-            y: {
-              grid: {
-                display: false,
-              },
-            },
+        },
+      }}
+      data={{
+        labels: Object.keys(locations).map((l) => (l !== 'undefined' ? l : 'Unknown')),
+        datasets: [
+          {
+            label: '',
+            data: Object.values(locations),
+            backgroundColor: '#165788',
           },
-        }}
-        data={{
-          labels: Object.keys(locations),
-          datasets: [
-            {
-              label: '',
-              data: Object.values(locations),
-              backgroundColor: '#165788',
-            },
-          ],
-        }}
-      />
-    </div>
+        ],
+      }}
+    />
   )
 }

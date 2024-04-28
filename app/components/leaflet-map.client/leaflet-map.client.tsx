@@ -15,6 +15,7 @@ export const LeafletMap = ({ ...props }: LeafletMapProps) => {
         data={wards.features}
         onEachFeature={(feature, layer) => {}}
         style={{
+          color: '#165788',
           fillColor: 'none',
           weight: 2,
         }}

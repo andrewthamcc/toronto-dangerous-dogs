@@ -1,8 +1,9 @@
 # Toronto Dangerous Dogs
 
-## Open data
+### Open data
 
-City of Toronto Open Data
+City of Toronto open data
+
 https://open.toronto.ca/dataset/dogs-issued-dangerous-dog-orders/
 
 ### Build
@@ -11,4 +12,4 @@ https://open.toronto.ca/dataset/dogs-issued-dangerous-dog-orders/
 - Remix
 - Tailwind
 - Leaflet
-- shadcn/ui
+- Headless UI

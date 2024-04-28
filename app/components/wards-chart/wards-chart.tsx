@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +10,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { Dog } from '~/types'
+import { ToggleGroup } from '~/ui/toggle-group/toggle-group'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -16,7 +18,7 @@ export interface Ward {
   name: string
   number: string
   attacks: Dog[]
-  total: number
+  byYear: { [key: string]: Dog[] }
   sortation: {
     string: number
   }
@@ -24,37 +26,65 @@ export interface Ward {
 
 interface WardChartProps {
   wards: Ward[]
+  years: string[]
 }
 
-// add filters for years [2017 - present, all]
-export const WardsChart = ({ wards }: WardChartProps) => {
+export const WardsChart = ({ wards, years }: WardChartProps) => {
+  const [selectedYear, setSelectedYear] = useState<string>('All')
+  const options = [...years, 'All']
+
+  useEffect(() => {}, [selectedYear])
+
+  console.log(wards)
+
   return (
-    <Bar
-      options={{
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        indexAxis: 'y',
-        scales: {
-          y: {
-            grid: {
-              display: false,
+    <div className="flex grow flex-col gap-4">
+      <div className="flex flex-row justify-end">
+        <ToggleGroup
+          selected={selectedYear}
+          options={options}
+          onChange={(year) => setSelectedYear(year)}
+        />
+      </div>
+
+      <div className="flex grow items-center">
+        <Bar
+          className="my-auto"
+          options={{
+            plugins: {
+              legend: {
+                display: false,
+              },
             },
-          },
-        },
-      }}
-      data={{
-        labels: wards.map(({ name }) => name),
-        datasets: [
-          {
-            label: '',
-            data: wards.map(({ total }) => total),
-            backgroundColor: '#165788',
-          },
-        ],
-      }}
-    />
+            indexAxis: 'y',
+            scales: {
+              y: {
+                grid: {
+                  display: false,
+                },
+              },
+              x: {
+                ticks: {
+                  precision: 0,
+                },
+              },
+            },
+          }}
+          data={{
+            labels: wards.map(({ name }) => name),
+            datasets: [
+              {
+                label: '',
+                data:
+                  selectedYear !== 'All'
+                    ? wards.map(({ byYear }) => byYear[selectedYear].length)
+                    : wards.map(({ attacks }) => attacks.length),
+                backgroundColor: '#165788',
+              },
+            ],
+          }}
+        />
+      </div>
+    </div>
   )
 }
