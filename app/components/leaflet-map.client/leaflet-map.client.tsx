@@ -8,13 +8,12 @@ interface LeafletMapProps extends PropsWithChildren, MapOptions {
   zoom?: number
 }
 
-export const LeafletMap = ({ children, ...props }: LeafletMapProps) => {
+export const LeafletMap = ({ ...props }: LeafletMapProps) => {
   return (
-    <MapContainer className="flex-grow w-full" maxZoom={16} {...props}>
+    <MapContainer className="w-full flex-grow" maxZoom={16} {...props}>
       <GeoJSON
         data={wards.features}
-        onEachFeature={(feature, layer) => {
-        }}
+        onEachFeature={(feature, layer) => {}}
         style={{
           fillColor: 'none',
           weight: 2,

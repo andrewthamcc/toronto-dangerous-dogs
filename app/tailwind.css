@@ -4,8 +4,12 @@
 
 @layer components {
   .container {
-    width: 85%;
-    max-width: 1400px;
+    width: 90%;
+    max-width: 1500px;
     margin: 0 auto;
   }
+}
+
+a.active {
+  @apply border-b-2 border-toronto;
 }
