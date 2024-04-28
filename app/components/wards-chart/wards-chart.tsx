@@ -11,6 +11,7 @@ import {
 import { Bar } from 'react-chartjs-2'
 import { Dog } from '~/types'
 import { ToggleGroup } from '~/ui/toggle-group/toggle-group'
+import { Select } from '~/ui/select/select'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -35,16 +36,23 @@ export const WardsChart = ({ wards, years }: WardChartProps) => {
 
   useEffect(() => {}, [selectedYear])
 
-  console.log(wards)
-
   return (
     <div className="flex grow flex-col gap-4">
       <div className="flex flex-row justify-end">
-        <ToggleGroup
-          selected={selectedYear}
-          options={options}
-          onChange={(year) => setSelectedYear(year)}
-        />
+        <div className="hidden md:block">
+          <ToggleGroup
+            selected={selectedYear}
+            options={options}
+            onChange={(year) => setSelectedYear(year)}
+          />
+        </div>
+        <div className="block md:hidden">
+          <Select
+            selected={selectedYear}
+            options={options}
+            onChange={(year) => setSelectedYear(year)}
+          />
+        </div>
       </div>
 
       <div className="flex grow items-center">
