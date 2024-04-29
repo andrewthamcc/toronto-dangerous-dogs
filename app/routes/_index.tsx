@@ -1,5 +1,7 @@
 import type { MetaFunction } from '@remix-run/node'
-import LeafletMap from '~/components/leaflet-map.client'
+import { ClientOnly } from '~/ui/client-only'
+import Map from '~/components/map.client'
+import { Spinner } from '~/ui/spinner/spinner'
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,7 +13,9 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="flex flex-grow">
-      <LeafletMap center={[43.71, -79.35]} zoom={11} />
+      <ClientOnly fallback={<Spinner />}>
+        {() => <Map center={[43.71, -79.35]} zoom={11} />}
+      </ClientOnly>
     </div>
   )
 }

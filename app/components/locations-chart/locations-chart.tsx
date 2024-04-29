@@ -6,12 +6,13 @@ import {
   BarElement,
   PointElement,
   LineElement,
+  RadialLinearScale,
+  Filler,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js'
-import { Bar } from 'react-chartjs-2'
-import { Line } from 'react-chartjs-2'
+import { Bar, Line, Radar } from 'react-chartjs-2'
 import { ToggleGroup } from '~/ui/toggle-group/toggle-group'
 import type { DogRecord, Severity } from '~/util/get-stats'
 import type { Dog } from '~/types'
@@ -22,6 +23,8 @@ ChartJS.register(
   BarElement,
   PointElement,
   LineElement,
+  RadialLinearScale,
+  Filler,
   Title,
   Tooltip,
   Legend
@@ -114,9 +117,15 @@ const ByYear = ({ byYear, years }: { byYear: ByYear; years: string[] }) => {
 }
 
 const BySeverity = ({ bySeverity }: { bySeverity: BySeverity }) => {
+  const severity = [
+    { key: 'nab', label: 'NAB' },
+    { key: 'nonSevere', label: 'Non-severe' },
+    { key: 'severe', label: 'Severe' },
+  ]
+
   return (
-    <Bar
-      className="my-auto"
+    <Radar
+      className="my-auto max-h-[500px]"
       options={{
         plugins: {
           legend: {
@@ -135,14 +144,18 @@ const BySeverity = ({ bySeverity }: { bySeverity: BySeverity }) => {
         },
       }}
       data={{
-        labels: ['NAB', 'Non-Severe', 'Severe'],
-        datasets: Object.keys(bySeverity).map((location, i) => ({
-          label: location,
-          data: Object.keys(bySeverity[location]).map(
-            (severity) => bySeverity[location][severity]
-          ),
-          backgroundColor: getColor(i),
-        })),
+        labels: Object.keys(bySeverity),
+        datasets: severity.map(({ key, label }, i) => {
+          return {
+            label: label,
+            data: Object.keys(bySeverity).map(
+              (location) => bySeverity[location as keyof typeof Severity][key]
+            ),
+            backgroundColor: getColor(i, 0.5),
+            borderColor: getColor(i, 0.5),
+            borderWidth: 1,
+          }
+        }),
       }}
     />
   )
@@ -184,19 +197,19 @@ const ByLocation = ({ locations }: { locations: DogRecord }) => {
   )
 }
 
-function getColor(index: number) {
+function getColor(index: number, opacity = 0.8) {
   switch (index) {
+    case 0:
+      return `rgba(255, 99, 132, ${opacity})`
     case 1:
-      return 'rgba(255, 99, 132, 0.8)'
+      return `rgba(54, 162, 235, ${opacity})`
     case 2:
-      return 'rgba(54, 162, 235, 0.8)'
+      return `rgba(255, 205, 86, ${opacity})`
     case 3:
-      return 'rgba(255, 205, 86, 0.8)'
+      return `rgba(75, 192, 192, ${opacity})`
     case 4:
-      return 'rgba(75, 192, 192, 0.8)'
-    case 5:
-      return 'rgba(153, 102, 255, 0.8)'
+      return `rgba(153, 102, 255, ${opacity})`
     default:
-      return 'rgba(22, 87, 136, 0.8)'
+      return `rgba(22, 87, 136, ${opacity})`
   }
 }
