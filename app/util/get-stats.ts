@@ -9,6 +9,12 @@ interface AttacksByYear {
   [key: string]: Dog[]
 }
 
+export interface Severity {
+  nab: number
+  nonSevere: number
+  severe: number
+}
+
 function getAvailableYears(data: Dog[]) {
   return data
     .reduce((acc: number[], curr) => {
@@ -28,19 +34,23 @@ function getWards(data: Dog[]) {
         if (!acc[Forward_Sortation_Area])
           return { ...acc, [Forward_Sortation_Area]: 1 }
         acc[Forward_Sortation_Area] += 1
+
         return acc
       },
       {}
     )
 
-    const byYear = getAvailableYears(data).reduce((acc: AttacksByYear, curr) => {
-      const attacksByYear = attacks.filter(
-        ({ Date_of_Dangerous_Act }) =>
-          new Date(Date_of_Dangerous_Act).getFullYear() === curr
-      )
+    const byYear = getAvailableYears(data).reduce(
+      (acc: AttacksByYear, curr) => {
+        const attacksByYear = attacks.filter(
+          ({ Date_of_Dangerous_Act }) =>
+            new Date(Date_of_Dangerous_Act).getFullYear() === curr
+        )
 
-      return { ...acc, [curr]: attacksByYear }
-    }, {} as AttacksByYear)
+        return { ...acc, [curr]: attacksByYear }
+      },
+      {} as AttacksByYear
+    )
 
     return {
       ...rest,
@@ -76,10 +86,9 @@ function getYears(data: Dog[]) {
           if (level >= 3) return { ...acc, severe: acc.severe + value }
         } else {
           if (key === 'NAB') return { ...acc, nab: acc.nab + value }
-          else if (key <= 'NON-SEVERE')
+          if (key === 'NON-SEVERE')
             return { ...acc, nonSevere: acc.nonSevere + value }
-          else if (key >= 'SEVERE')
-            return { ...acc, severe: acc.severe + value }
+          if (key === 'SEVERE') return { ...acc, severe: acc.severe + value }
         }
 
         return acc
@@ -125,7 +134,7 @@ function getBreeds(data: Dog[]) {
 
   const multiple: DogRecord = {}
   for (const breed in consolodated) {
-    if (consolodated[breed] > 2) multiple[breed] = consolodated[breed]
+    if (consolodated[breed] >= 5) multiple[breed] = consolodated[breed]
   }
 
   return { breeds, consolodated, multiple }
@@ -133,6 +142,8 @@ function getBreeds(data: Dog[]) {
 
 function getIncidentLocations(data: Dog[]) {
   const locations = data.reduce((acc: DogRecord, { Location_of_Incident }) => {
+    if (!Location_of_Incident) return acc
+
     if (!acc[Location_of_Incident]) {
       return {
         ...acc,
@@ -144,7 +155,56 @@ function getIncidentLocations(data: Dog[]) {
     return acc
   }, {})
 
-  return locations
+  const byYear = Object.keys(locations).reduce((acc, curr) => {
+    const years = getAvailableYears(data).reduce((acc, year) => {
+      const countByYear = data.filter(
+        ({ Date_of_Dangerous_Act, Location_of_Incident }) =>
+          new Date(Date_of_Dangerous_Act).getFullYear() === year &&
+          Location_of_Incident === curr
+      )
+
+      return { ...acc, [year]: countByYear }
+    }, {})
+
+    return { ...acc, [curr]: years }
+  }, {})
+
+  const bySeverity = Object.keys(locations).reduce(
+    (acc, location) => {
+      const severities = data
+        .filter(({ Location_of_Incident }) => Location_of_Incident === location)
+        .reduce(
+          (acc, { Bite_Circumstance }) => {
+            if (Bite_Circumstance.startsWith('LEVEL')) {
+              const level = Number(Bite_Circumstance.split(' ')[1])
+              if (level === 0) return { ...acc, nab: acc.nab + 1 }
+              if (level <= 2) return { ...acc, nonSevere: acc.nonSevere + 1 }
+              if (level >= 3) return { ...acc, severe: acc.severe + 1 }
+            } else {
+              if (Bite_Circumstance === 'NAB')
+                return { ...acc, nab: acc.nab + 1 }
+              if (Bite_Circumstance === 'NON-SEVERE')
+                return { ...acc, nonSevere: acc.nonSevere + 1 }
+              if (Bite_Circumstance === 'SEVERE')
+                return { ...acc, severe: acc.severe + 1 }
+            }
+
+            return acc
+          },
+          { nab: 0, nonSevere: 0, severe: 0 }
+        )
+
+      return {
+        ...acc,
+        [location]: {
+          ...severities,
+        },
+      }
+    },
+    {} as { [key: string]: Severity }
+  )
+
+  return { locations, byYear, bySeverity }
 }
 
 export function getStats(data: Dog[]) {

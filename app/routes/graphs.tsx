@@ -6,7 +6,7 @@ import { YearsChart } from '~/components/years-chart'
 import { useDogs } from '~/root'
 import { getStats } from '~/util/get-stats'
 
-export default function Stats() {
+export default function Graphs() {
   const data = useDogs() ?? []
 
   const { wards, years, breeds, incidentLocations } = getStats(data)
@@ -29,7 +29,10 @@ export default function Stats() {
       </Card>
 
       <Card title="Incident location">
-        <LocationsChart locations={incidentLocations} />
+        <LocationsChart
+          {...incidentLocations}
+          years={years.map(({ year }) => year.toString())}
+        />
       </Card>
     </div>
   )

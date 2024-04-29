@@ -24,7 +24,7 @@ export const ToggleGroup = ({
           <RadioGroup.Option value={option}>
             {({ checked }) => (
               <button
-                className={`border-2 px-2 py-1 text-sm ${checked ? 'bg-toronto font-semibold text-white' : ''} ${i === 0 ? 'rounded-l-md' : ''} ${i === options.length - 1 ? 'rounded-r-md' : ''}`}
+                className={`border-2 px-2 py-1 text-sm capitalize ${checked ? 'bg-toronto font-semibold text-white' : ''} ${i === 0 ? 'rounded-l-md' : ''} ${i === options.length - 1 ? 'rounded-r-md' : ''}`}
               >
                 {option}
               </button>

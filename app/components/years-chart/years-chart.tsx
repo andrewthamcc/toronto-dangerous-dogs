@@ -85,7 +85,7 @@ export const YearsChart = ({ years }: YearsChartProps) => {
         <Switch
           id="year-toggle"
           checked={displayByKind}
-          label="Display by kind"
+          label="Display by bite"
           onChange={() => setDisplayByKind((prev) => !prev)}
         />
       </div>

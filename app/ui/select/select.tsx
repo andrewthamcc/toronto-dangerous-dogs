@@ -1,5 +1,6 @@
 import { Fragment } from 'react/jsx-runtime'
 import { Listbox, Transition } from '@headlessui/react'
+import Caret from './caret.svg'
 
 interface SelectProps {
   options: string[]
@@ -12,8 +13,9 @@ export const Select = ({ onChange, options, selected }: SelectProps) => {
     <div>
       <Listbox value={selected} onChange={onChange}>
         <div className="relative">
-          <Listbox.Button className="relative w-full min-w-[80px] cursor-default rounded-lg bg-white px-4 py-1 shadow-md">
+          <Listbox.Button className="relative flex w-full min-w-[80px] cursor-default items-center justify-between gap-2 rounded-lg border-2 bg-white px-4 py-1 shadow-md">
             {selected}
+            <img className="w-4" src={Caret} alt="caret down" />
           </Listbox.Button>
           <Transition
             as={Fragment}

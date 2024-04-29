@@ -99,10 +99,6 @@ export const WARDS = [
     number: '25',
     name: 'Scarborough-Rouge Park',
   },
-  {
-    number: '34',
-    name: 'No Ward Info',
-  },
 ]
 
 export const SEVERITY = [

@@ -78,13 +78,13 @@ const TABS = [
     label: 'Map',
   },
   {
-    to: '/stats',
-    label: 'Stats',
+    to: '/graphs',
+    label: 'Visualizations',
   },
-  {
-    to: '/data',
-    label: 'Data',
-  },
+  // {
+  //   to: '/data',
+  //   label: 'Data',
+  // },
 ]
 
 export default function App() {

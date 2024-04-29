@@ -87,7 +87,8 @@ export const WardsChart = ({ wards, years }: WardChartProps) => {
                   selectedYear !== 'All'
                     ? wards.map(({ byYear }) => byYear[selectedYear].length)
                     : wards.map(({ attacks }) => attacks.length),
-                backgroundColor: '#165788',
+                backgroundColor: 'rgba(22, 87, 136, 1)',
+                hoverBackgroundColor: 'rgba(22, 87, 136, 0.7)',
               },
             ],
           }}
