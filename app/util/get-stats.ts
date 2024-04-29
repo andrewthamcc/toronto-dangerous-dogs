@@ -25,7 +25,7 @@ function getAvailableYears(data: Dog[]) {
     .sort()
 }
 
-function getWards(data: Dog[]) {
+export function getWards(data: Dog[]) {
   const wards = WARDS.map(({ number, ...rest }) => {
     const attacks = data.filter(({ Ward_Number }) => Ward_Number === number)
 

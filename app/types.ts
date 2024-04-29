@@ -14,3 +14,13 @@ export const HEADERS = [
 type EntryKey = (typeof HEADERS)[number]
 
 export type Dog = Record<EntryKey, string>
+
+export interface Ward {
+  name: string
+  number: string
+  attacks: Dog[]
+  byYear: { [key: string]: Dog[] }
+  sortation: {
+    string: number
+  }
+}

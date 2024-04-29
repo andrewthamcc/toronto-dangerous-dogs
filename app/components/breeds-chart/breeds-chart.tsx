@@ -42,7 +42,7 @@ export const BreedsChart = ({
         <Switch
           id="breed-toggle"
           checked={displayMultiple}
-          label="Display breeds with 5 or more bites"
+          label="Breeds with 5 or more bites"
           onChange={() => setDisplayMultiple((prev) => !prev)}
         />
       </div>

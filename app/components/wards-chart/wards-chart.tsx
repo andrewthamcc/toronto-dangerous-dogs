@@ -9,21 +9,11 @@ import {
   Legend,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { Dog } from '~/types'
+import { Ward } from '~/types'
 import { ToggleGroup } from '~/ui/toggle-group/toggle-group'
 import { Select } from '~/ui/select/select'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
-
-export interface Ward {
-  name: string
-  number: string
-  attacks: Dog[]
-  byYear: { [key: string]: Dog[] }
-  sortation: {
-    string: number
-  }
-}
 
 interface WardChartProps {
   wards: Ward[]

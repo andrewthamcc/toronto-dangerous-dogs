@@ -116,13 +116,13 @@ const ByYear = ({ byYear, years }: { byYear: ByYear; years: string[] }) => {
   )
 }
 
-const BySeverity = ({ bySeverity }: { bySeverity: BySeverity }) => {
-  const severity = [
-    { key: 'nab', label: 'NAB' },
-    { key: 'nonSevere', label: 'Non-severe' },
-    { key: 'severe', label: 'Severe' },
-  ]
+const SEVERITY_OPTIONS = [
+  { key: 'nab', label: 'NAB' },
+  { key: 'nonSevere', label: 'Non-severe' },
+  { key: 'severe', label: 'Severe' },
+]
 
+const BySeverity = ({ bySeverity }: { bySeverity: BySeverity }) => {
   return (
     <Radar
       className="my-auto max-h-[500px]"
@@ -145,11 +145,11 @@ const BySeverity = ({ bySeverity }: { bySeverity: BySeverity }) => {
       }}
       data={{
         labels: Object.keys(bySeverity),
-        datasets: severity.map(({ key, label }, i) => {
+        datasets: SEVERITY_OPTIONS.map(({ key, label }, i) => {
           return {
             label: label,
             data: Object.keys(bySeverity).map(
-              (location) => bySeverity[location as keyof typeof Severity][key]
+              (location) => bySeverity[location][key]
             ),
             backgroundColor: getColor(i, 0.5),
             borderColor: getColor(i, 0.5),
