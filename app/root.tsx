@@ -8,16 +8,14 @@ import {
   useLoaderData,
   NavLink,
   useRouteLoaderData,
-  redirect,
 } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
-import stylesheet from '~/tailwind.css?url'
-import 'leaflet/dist/leaflet.css'
 import { Layout as RouteLayout } from '~/layout'
 import { Spinner } from '~/ui/spinner/spinner'
-import { transformData } from '~/util/transform-data'
+import { transformData } from '~/utils/transform-data'
 import { Dog } from '~/types'
-import clsx from 'clsx'
+import stylesheet from '~/tailwind.css?url'
+import 'leaflet/dist/leaflet.css'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },

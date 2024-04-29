@@ -10,6 +10,8 @@ import {
 } from 'chart.js'
 import { PolarArea } from 'react-chartjs-2'
 import { Bar } from 'react-chartjs-2'
+import { DogRecord } from '~/utils/get-stats'
+import { Switch } from '~/ui/switch/switch'
 
 ChartJS.register(
   CategoryScale,
@@ -20,9 +22,6 @@ ChartJS.register(
   Legend
 )
 
-import { DogRecord } from '~/util/get-stats'
-import { Switch } from '~/ui/switch/switch'
-
 interface BreedsChartProps {
   breeds: DogRecord
   consolodated: DogRecord
@@ -30,7 +29,6 @@ interface BreedsChartProps {
 }
 
 export const BreedsChart = ({
-  breeds,
   consolodated,
   multiple,
 }: BreedsChartProps) => {

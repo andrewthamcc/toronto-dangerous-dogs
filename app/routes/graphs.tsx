@@ -1,10 +1,11 @@
-import { BreedsChart } from '~/components/breeds-chart'
-import { Card } from '~/ui/card'
-import { LocationsChart } from '~/components/locations-chart'
-import { type Ward, WardsChart } from '~/components/wards-chart'
-import { YearsChart } from '~/components/years-chart'
 import { useDogs } from '~/root'
-import { getStats } from '~/util/get-stats'
+import { Card } from '~/ui/card'
+import { WardsChart } from '~/components/wards-chart'
+import { YearsChart } from '~/components/years-chart'
+import { BreedsChart } from '~/components/breeds-chart'
+import { LocationsChart } from '~/components/locations-chart'
+import { getStats } from '~/utils/get-stats'
+import { Ward } from '~/types'
 
 export default function Graphs() {
   const data = useDogs() ?? []

@@ -6,9 +6,17 @@ interface WardProps {
   data: Dog[]
   isOpen: boolean
   onClose: () => void
+  wardName: string
+  wardNumber: string
 }
 
-export const Ward = ({ data, isOpen, onClose }: WardProps) => {
+export const Ward = ({
+  data,
+  isOpen,
+  onClose,
+  wardName,
+  wardNumber,
+}: WardProps) => {
   if (!isOpen) return null
 
   // getWardStats helper
@@ -46,7 +54,7 @@ export const Ward = ({ data, isOpen, onClose }: WardProps) => {
             >
               <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-lg bg-white p-6 shadow-xl transition-all">
                 <Dialog.Title as="h2" className="text-lg">
-                  Ward {data?.number} - {data?.name}
+                  Ward {wardNumber} {wardName}
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm ">blah blah blah</p>

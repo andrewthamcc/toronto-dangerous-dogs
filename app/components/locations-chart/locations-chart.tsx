@@ -14,7 +14,7 @@ import {
 } from 'chart.js'
 import { Bar, Line, Radar } from 'react-chartjs-2'
 import { ToggleGroup } from '~/ui/toggle-group/toggle-group'
-import type { DogRecord, Severity } from '~/util/get-stats'
+import type { DogRecord, Severity } from '~/utils/get-stats'
 import type { Dog } from '~/types'
 
 ChartJS.register(
