@@ -10,8 +10,6 @@ import { Ward } from '~/types'
 export default function Graphs() {
   const data = useDogs() ?? []
 
-  console.log(data.filter(({ Breed }) => Breed && Breed.startsWith('GOLD')))
-
   const { wards, years, breeds, incidentLocations } =
     getVisualizationStats(data)
 
@@ -29,7 +27,7 @@ export default function Graphs() {
         info={
           <div className="flex flex-col gap-2">
             <p>
-              Attacks are classified with different scales and data was collated
+              Attacks are classified with different scales. Data was collated
               into one format.
             </p>
             <ul className="ml-[1rem] list-disc">
@@ -58,7 +56,7 @@ export default function Graphs() {
           <div className="flex flex-col gap-2">
             <p>
               Data was colated for any mixed breed into their primary listed
-              breed. The primary breed being the first listed breed.
+              breed.
             </p>
 
             <div className="flex gap-2 text-xs">

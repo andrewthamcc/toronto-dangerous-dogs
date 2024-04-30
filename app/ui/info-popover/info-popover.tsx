@@ -25,7 +25,7 @@ export default function InfoPopover({ children }: PropsWithChildren) {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="absolute z-10 w-screen max-w-md">
+            <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm transform px-4 sm:px-0 -translate-x-1/2 sm:translate-x-0">
               <div className="overflow-hidden rounded-lg bg-white px-6 py-4 shadow-2xl">
                 <div className="relative bg-white text-sm">{children}</div>
               </div>
