@@ -78,7 +78,7 @@ export const Ward = ({
                   </Dialog.Title>
 
                   <button
-                    className="rounded-full h-6 w-6 fill-slate-400 p-1 transition-colors hover:bg-black/5"
+                    className="h-6 w-6 rounded-full fill-slate-400 p-1 transition-colors hover:bg-black/5"
                     onClick={onClose}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 19">
@@ -115,7 +115,7 @@ export const Ward = ({
                       <div className="my-2 w-full border-b-2 sm:w-11/12" />
                       <ul>
                         <li className="text-sm">
-                          NAB:{' '}
+                          Non-aggressive bite:{' '}
                           <strong className="text-lg">{severity.nab}</strong>
                         </li>
                         <li className="text-sm">
@@ -209,14 +209,6 @@ export const Ward = ({
                       />
                     </div>
                   </div>
-                </div>
-                <div className="mt-4 flex justify-end">
-                  <button
-                    className="rounded-md border-2 border-toronto px-4 py-2 text-sm transition-colors hover:bg-toronto/70 hover:text-white"
-                    onClick={onClose}
-                  >
-                    Close
-                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
