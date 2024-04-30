@@ -10,7 +10,7 @@ import {
 } from 'chart.js'
 import { PolarArea } from 'react-chartjs-2'
 import { Bar } from 'react-chartjs-2'
-import { DogRecord } from '~/utils/get-stats'
+import { DogRecord } from '~/utils/getVisualizationStats'
 import { Switch } from '~/ui/switch/switch'
 
 ChartJS.register(
@@ -91,7 +91,7 @@ export const BreedsChart = ({
               labels: Object.keys(consolodated),
               datasets: [
                 {
-                  label: 'Bites',
+                  label: 'Attacks',
                   data: Object.values(consolodated),
                   backgroundColor: 'rgba(22, 87, 136, 1)',
                   hoverBackgroundColor: 'rgba(22, 87, 136, 0.7)',

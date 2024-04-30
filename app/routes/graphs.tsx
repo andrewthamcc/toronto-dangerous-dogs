@@ -4,13 +4,13 @@ import { WardsChart } from '~/components/wards-chart'
 import { YearsChart } from '~/components/years-chart'
 import { BreedsChart } from '~/components/breeds-chart'
 import { LocationsChart } from '~/components/locations-chart'
-import { getStats } from '~/utils/get-stats'
+import { getVisualizationStats } from '~/utils/getVisualizationStats'
 import { Ward } from '~/types'
 
 export default function Graphs() {
   const data = useDogs() ?? []
 
-  const { wards, years, breeds, incidentLocations } = getStats(data)
+  const { wards, years, breeds, incidentLocations } = getVisualizationStats(data)
 
   return (
     <div className="flex flex-col gap-4">

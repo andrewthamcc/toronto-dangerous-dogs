@@ -15,6 +15,12 @@ type EntryKey = (typeof HEADERS)[number]
 
 export type Dog = Record<EntryKey, string>
 
+export interface Severity {
+  nab: number
+  nonSevere: number
+  severe: number
+}
+
 export interface Ward {
   name: string
   number: string

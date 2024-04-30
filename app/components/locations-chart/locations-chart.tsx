@@ -14,8 +14,8 @@ import {
 } from 'chart.js'
 import { Bar, Line, Radar } from 'react-chartjs-2'
 import { ToggleGroup } from '~/ui/toggle-group/toggle-group'
-import type { DogRecord, Severity } from '~/utils/get-stats'
-import type { Dog } from '~/types'
+import type { DogRecord } from '~/utils/getVisualizationStats'
+import type { Dog, Severity } from '~/types'
 
 ChartJS.register(
   CategoryScale,
@@ -83,7 +83,7 @@ export const LocationsChart = ({
 const ByYear = ({ byYear, years }: { byYear: ByYear; years: string[] }) => {
   return (
     <Line
-      className="my-auto"
+      className="my-auto min-h-[400px] sm:h-auto"
       options={{
         plugins: {
           legend: {
@@ -93,6 +93,7 @@ const ByYear = ({ byYear, years }: { byYear: ByYear; years: string[] }) => {
           },
         },
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             grid: {
@@ -125,7 +126,7 @@ const SEVERITY_OPTIONS = [
 const BySeverity = ({ bySeverity }: { bySeverity: BySeverity }) => {
   return (
     <Radar
-      className="my-auto max-h-[500px]"
+      className="my-auto min-h-[500px] sm:max-h-[500px]"
       options={{
         plugins: {
           legend: {
@@ -135,8 +136,10 @@ const BySeverity = ({ bySeverity }: { bySeverity: BySeverity }) => {
           },
         },
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
+            display: false,
             grid: {
               display: false,
             },

@@ -19,6 +19,11 @@ import 'leaflet/dist/leaflet.css'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
+  {
+    rel: 'icon',
+    sizes: '96x96',
+    href: '/favicon.png',
+  },
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {

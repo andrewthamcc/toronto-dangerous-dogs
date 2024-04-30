@@ -5,7 +5,7 @@ import { ClientOnly } from '~/ui/client-only'
 import { Spinner } from '~/ui/spinner/spinner'
 import { Map } from '~/components/map.client'
 import { Ward as WardInfo } from '~/components/ward/ward'
-import { getWards } from '~/utils/get-stats'
+import { getWardAttacks } from '~/utils/getVisualizationStats'
 import type { Dog, Ward } from '~/types'
 import { WARDS } from '~/data/constants'
 
@@ -21,7 +21,7 @@ export default function Index() {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const wards = getWards(data as Dog[])
+  const wards = getWardAttacks(data as Dog[])
   const wardParam = searchParams.get('ward')
 
   return (
@@ -42,7 +42,7 @@ export default function Index() {
         data={data.filter(({ Ward_Number }) => Ward_Number === wardParam)}
         isOpen={!!wardParam}
         onClose={() => setSearchParams()}
-        wardName={WARDS.find(({ number }) => wardParam)?.name ?? ''}
+        wardName={WARDS.find(({ number }) => number === wardParam)?.name ?? ''}
         wardNumber={wardParam ?? ''}
       />
     </>

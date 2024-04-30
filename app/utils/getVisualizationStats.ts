@@ -1,5 +1,6 @@
 import { WARDS } from '~/data/constants'
-import { Dog } from '~/types'
+import type { Dog, Severity } from '~/types'
+import { getAvailableYears } from './getAvailableYears'
 
 export interface DogRecord {
   [key: string]: number
@@ -9,23 +10,7 @@ interface AttacksByYear {
   [key: string]: Dog[]
 }
 
-export interface Severity {
-  nab: number
-  nonSevere: number
-  severe: number
-}
-
-function getAvailableYears(data: Dog[]) {
-  return data
-    .reduce((acc: number[], curr) => {
-      const year = new Date(curr.Date_of_Dangerous_Act).getFullYear()
-      if (!acc.includes(year) && !isNaN(year)) return [...acc, year]
-      return acc
-    }, [])
-    .sort()
-}
-
-export function getWards(data: Dog[]) {
+export function getWardAttacks(data: Dog[]) {
   const wards = WARDS.map(({ number, ...rest }) => {
     const attacks = data.filter(({ Ward_Number }) => Ward_Number === number)
 
@@ -64,7 +49,7 @@ export function getWards(data: Dog[]) {
   return wards
 }
 
-function getYears(data: Dog[]) {
+function getYearlyAttacks(data: Dog[]) {
   const years = getAvailableYears(data).map((year) => {
     const acts = data.filter(
       ({ Date_of_Dangerous_Act }) =>
@@ -106,7 +91,7 @@ function getYears(data: Dog[]) {
   return years
 }
 
-function getBreeds(data: Dog[]) {
+function getBreedAttacks(data: Dog[]) {
   const breeds = data.reduce((acc: DogRecord, { Breed }) => {
     if (!acc[Breed]) {
       return {
@@ -207,11 +192,11 @@ function getIncidentLocations(data: Dog[]) {
   return { locations, byYear, bySeverity }
 }
 
-export function getStats(data: Dog[]) {
+export function getVisualizationStats(data: Dog[]) {
   return {
-    wards: getWards(data),
-    years: getYears(data),
-    breeds: getBreeds(data),
+    wards: getWardAttacks(data),
+    years: getYearlyAttacks(data),
+    breeds: getBreedAttacks(data),
     incidentLocations: getIncidentLocations(data),
   }
 }
