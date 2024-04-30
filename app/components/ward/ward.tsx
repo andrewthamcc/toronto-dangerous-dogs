@@ -189,7 +189,10 @@ export const Ward = ({
                   </div>
                 </div>
                 <div className="mt-4 flex justify-end">
-                  <button className="rounded-md border-2 border-toronto px-4 py-2 text-sm transition-colors hover:bg-toronto/70 hover:text-white">
+                  <button
+                    className="rounded-md border-2 border-toronto px-4 py-2 text-sm transition-colors hover:bg-toronto/70 hover:text-white"
+                    onClick={onClose}
+                  >
                     Close
                   </button>
                 </div>
