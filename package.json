@@ -6,11 +6,13 @@
     "build": "remix vite:build",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix serve",
+    "start": "netlify serve",
     "typecheck": "tsc"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
+    "@netlify/functions": "^2.6.0",
+    "@netlify/remix-adapter": "^2.3.1",
     "@remix-run/node": "^2.9.1",
     "@remix-run/react": "^2.9.1",
     "@remix-run/serve": "^2.9.1",
@@ -19,7 +21,6 @@
     "clsx": "^2.1.1",
     "isbot": "^4.1.0",
     "leaflet": "^1.9.4",
-    "lucide-react": "^0.376.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
