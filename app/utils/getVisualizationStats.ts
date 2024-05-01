@@ -194,9 +194,9 @@ function getIncidentLocations(data: Dog[]) {
 
 export function getVisualizationStats(data: Dog[]) {
   return {
-    wards: getWardAttacks(data),
-    years: getYearlyAttacks(data),
     breeds: getBreedAttacks(data),
     incidentLocations: getIncidentLocations(data),
+    wards: getWardAttacks(data),
+    years: getYearlyAttacks(data),
   }
 }

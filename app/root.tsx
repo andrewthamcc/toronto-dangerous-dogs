@@ -84,10 +84,10 @@ const TABS = [
     to: '/graphs',
     label: 'Visualizations',
   },
-  // {
-  //   to: '/data',
-  //   label: 'Data',
-  // },
+  {
+    to: '/data',
+    label: 'Data',
+  },
 ]
 
 export default function App() {
