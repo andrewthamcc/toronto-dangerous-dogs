@@ -49,39 +49,42 @@ export default function Data() {
         </a>
       </div>
 
-      <table className="border-2 shadow-md mb-1">
-        <thead>
-          <tr>
-            {table.getFlatHeaders().map((header) => (
-              <th className="border-2 px-2" key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row, i) => (
-            <tr
-              className={`text-sm ${i % 2 ? 'bg-slate-100' : ''}`}
-              key={row.id}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <td className="border-2 px-2" key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+      <div className="overflow-auto">
+        <table className="mb-1 border-2 shadow-md">
+          <thead>
+            <tr>
+              {table.getFlatHeaders().map((header) => (
+                <th className="border-2 px-2" key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="mb-2 flex flex-row items-start justify-between">
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row, i) => (
+              <tr
+                className={`text-sm hover:bg-sky-100 ${i % 2 ? 'bg-slate-100' : ''}`}
+                key={row.id}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td className="border-2 px-2" key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mb-2 flex  items-start justify-between">
         <div className="flex items-center gap-2">
-          <label htmlFor="row-count" className="text-sm">
+          <label htmlFor="row-count" className="text-sm hidden sm:block">
             Rows:
           </label>
           <ToggleGroup
@@ -121,7 +124,7 @@ export default function Data() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between">
         <p className="text-sm">
           Showing{' '}
           <strong>{table.getRowModel().rows.length.toLocaleString()}</strong> of{' '}

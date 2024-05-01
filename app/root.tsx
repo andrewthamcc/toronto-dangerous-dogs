@@ -8,6 +8,9 @@ import {
   useLoaderData,
   NavLink,
   useRouteLoaderData,
+  useRouteError,
+  isRouteErrorResponse,
+  Link,
 } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
 import { Layout as RouteLayout } from '~/layout'
@@ -108,6 +111,34 @@ export default function App() {
       </nav>
       <Outlet context={data} />
     </Suspense>
+  )
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError()
+  return (
+    <html>
+      <head>
+        <title>Oops!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="h-screen bg-center bg-no-repeat text-toronto">
+        <div className="container py-10">
+          <h1 className="text-6xl">
+            {isRouteErrorResponse(error)
+              ? `${error.status} ${error.statusText}`
+              : error instanceof Error
+                ? error.message
+                : 'Unknown Error'}
+          </h1>
+          <Link className="mt-6 block text-lg hover:underline" to="/">
+            Go Home
+          </Link>
+        </div>
+        <Scripts />
+      </body>
+    </html>
   )
 }
 
