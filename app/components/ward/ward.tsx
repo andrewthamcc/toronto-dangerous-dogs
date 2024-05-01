@@ -107,12 +107,12 @@ export const Ward = ({
                     </svg>
                   </button>
                 </div>
+                <div className="border-b-2" />
 
                 <div className="mt-2">
                   <div className="flex flex-col gap-4 sm:flex-row">
                     <div className="w-full sm:w-1/3">
                       <h3 className="font-semibold text-toronto">Stats</h3>
-                      <div className="my-2 w-full border-b-2 sm:w-11/12" />
                       <ul>
                         <li className="text-sm">
                           Non-aggressive bite:{' '}
@@ -141,7 +141,6 @@ export const Ward = ({
                       <h3 className="font-semibold text-toronto">
                         Attacks by postal code
                       </h3>
-                      <div className="my-2 w-11/12 border-b-2" />
                       <table>
                         <thead>
                           <tr>
@@ -177,7 +176,6 @@ export const Ward = ({
                       <h3 className="font-semibold text-toronto">
                         Year by year
                       </h3>
-                      <div className="my-2 w-11/12 border-b-2" />
                       <Line
                         className=""
                         options={{

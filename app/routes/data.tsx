@@ -32,8 +32,9 @@ export default function Data() {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-lg">
-        Raw data from registry of dogs subjected to and issued a dangerous dog order
+      <h2>
+        Raw data from the registry of dogs subjected to and issued a dangerous
+        dog order.
       </h2>
 
       <div className="mb-2 flex items-center">
@@ -48,33 +49,7 @@ export default function Data() {
         </a>
       </div>
 
-      <div className="flex items-center justify-end">
-        <PageControl
-          className="rounded-l-md border-r-0 px-2"
-          disabled={!table.getCanPreviousPage()}
-          label="≪"
-          onClick={() => table.firstPage()}
-        />
-        <PageControl
-          className="border-r-0"
-          disabled={!table.getCanPreviousPage()}
-          label="Previous"
-          onClick={() => table.previousPage()}
-        />
-        <PageControl
-          disabled={!table.getCanNextPage()}
-          label="Next"
-          onClick={() => table.nextPage()}
-        />
-        <PageControl
-          className="rounded-r-md border-l-0 px-2"
-          disabled={!table.getCanNextPage()}
-          label="≫"
-          onClick={() => table.lastPage()}
-        />
-      </div>
-
-      <table className="border-2">
+      <table className="border-2 shadow-md mb-1">
         <thead>
           <tr>
             {table.getFlatHeaders().map((header) => (
@@ -104,20 +79,8 @@ export default function Data() {
           ))}
         </tbody>
       </table>
-      <div className="mb-2 flex flex-row items-center justify-between">
-        <p className="text-sm">
-          Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
-          {table.getRowCount().toLocaleString()} Rows
-        </p>
-
-        <p className="text-sm">
-          Page <strong>{table.getState().pagination.pageIndex + 1}</strong> of{' '}
-          <strong>{table.getPageCount().toLocaleString()}</strong>
-        </p>
-      </div>
-
-      <div className="flex items-center justify-between">
-        <div className="flex flex-col">
+      <div className="mb-2 flex flex-row items-start justify-between">
+        <div className="flex items-center gap-2">
           <label htmlFor="row-count" className="text-sm">
             Rows:
           </label>
@@ -131,17 +94,57 @@ export default function Data() {
           />
         </div>
 
+        <div>
+          <PageControl
+            className="rounded-l-md border-r-0 px-2"
+            disabled={!table.getCanPreviousPage()}
+            label="≪"
+            onClick={() => table.firstPage()}
+          />
+          <PageControl
+            className="border-r-0"
+            disabled={!table.getCanPreviousPage()}
+            label="Previous"
+            onClick={() => table.previousPage()}
+          />
+          <PageControl
+            disabled={!table.getCanNextPage()}
+            label="Next"
+            onClick={() => table.nextPage()}
+          />
+          <PageControl
+            className="rounded-r-md border-l-0 px-2"
+            disabled={!table.getCanNextPage()}
+            label="≫"
+            onClick={() => table.lastPage()}
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <p className="text-sm">
+          Showing{' '}
+          <strong>{table.getRowModel().rows.length.toLocaleString()}</strong> of{' '}
+          <strong>{table.getRowCount().toLocaleString()}</strong> Rows
+        </p>
+
         <div className="flex flex-row items-center gap-2">
           <label className="text-sm">Go to page: </label>
           <input
-            className="w-12 appearance-none rounded-md border-2 px-2"
+            className="w-[70px] appearance-none rounded-md border-2 px-2 py-1 outline-none"
             type="number"
-            defaultValue={table.getState().pagination.pageIndex + 1}
+            max={table.getPageCount()}
+            value={table.getState().pagination.pageIndex + 1}
             onChange={(e) => {
               const page = e.target.value ? Number(e.target.value) - 1 : 0
               table.setPageIndex(page)
             }}
           />
+
+          <p className="text-right text-sm">
+            Page <strong>{table.getState().pagination.pageIndex + 1}</strong> of{' '}
+            <strong>{table.getPageCount().toLocaleString()}</strong>
+          </p>
         </div>
       </div>
     </div>
